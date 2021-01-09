@@ -427,3 +427,18 @@ INSERT INTO "ORM_BUG"(
     "MSSQL",
     "https://github.com/sqlalchemy/sqlalchemy/issues/5511"
 );
+
+INSERT INTO "ORM_BUG"(
+    "desc", "orm", "orm_version", "status", "release_blocker",
+    "bug_type", "affected_orm_feature", "affected_backend", "issue_url"
+) VALUES(
+    "Contains does not work as expected with % and _",
+    "peewee",
+    "3.13.3",
+    "fixed",
+    0,
+    "logic error",
+    "string comparison",
+    "ALL",
+    "https://github.com/coleifer/peewee/issues/2224"
+);
