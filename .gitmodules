@@ -1,0 +1,3 @@
+[submodule "cynthia"]
+	path = cynthia
+	url = git@github.com:theosotr/cynthia.git
