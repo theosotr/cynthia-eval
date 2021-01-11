@@ -428,6 +428,7 @@ INSERT INTO "ORM_BUG"(
     "https://github.com/sqlalchemy/sqlalchemy/issues/5511"
 );
 
+/* 27 */
 INSERT INTO "ORM_BUG"(
     "desc", "orm", "orm_version", "status", "release_blocker",
     "bug_type", "affected_orm_feature", "affected_backend", "issue_url"
