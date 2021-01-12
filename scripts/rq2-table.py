@@ -47,7 +47,7 @@ totals = [
     sum(row[6] for row in rows)
 ]
 rows.append(totals)
-row_format = "{:<14}" + "{:<9}" + "{:<9}" + "{:<11}" * 4
+row_format = "{:<14}" + "{:<9}" + "{:<10}" + "{:<11}" * 4
 print(row_format.format(*header))
 print("=" * 72)
 row_len = len(rows)
