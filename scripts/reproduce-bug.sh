@@ -43,5 +43,5 @@ else
     -d $backend
 fi
 
-diff .cynthia/sessions/TestSchema/1/${orm}_$backend.out \
+diff --color .cynthia/sessions/TestSchema/1/${orm}_$backend.out \
   .cynthia/sessions/TestSchema/1/${ref_orm}_$backend.out
