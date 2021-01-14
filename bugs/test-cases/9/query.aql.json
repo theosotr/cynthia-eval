@@ -1,0 +1,27 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "exists",
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.col"
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}

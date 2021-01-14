@@ -1,0 +1,15 @@
+SetRes(
+  New(
+    "T1",
+    List(
+      FieldDecl(F("T1.col"), "col", DoubleF, false),
+      FieldDecl(Mul(F("T1.id"), F("col")), "mul", DoubleF, false),
+      FieldDecl(
+        Mul(Div(F("T1.id"), F("mul")), Min(Sub(F("col"), Constant("7", UnQuoted)))),
+        "expr",
+        DoubleF,
+        false
+      )
+    )
+  )
+)

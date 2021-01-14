@@ -1,0 +1,30 @@
+SetRes(
+  Apply(
+    Sort(List(("rectal", Desc), ("vulgarity", Asc))),
+    Union(
+      New(
+        "Book",
+        List(
+          FieldDecl(
+            Div(F("Book.author.surname"), Constant("Olaf", Quoted)),
+            "vulgarity",
+            DoubleF,
+            false
+          ),
+          FieldDecl(F("Book.isbn"), "chewer", StringF, false),
+          FieldDecl(Max(F("Book.id")), "spacious", IntF, false),
+          FieldDecl(Constant("5", UnQuoted), "rectal", IntF, false)
+        )
+      ),
+      New(
+        "Review",
+        List(
+          FieldDecl(F("Review.content"), "gully", StringF, false),
+          FieldDecl(F("Review.rating"), "laws", IntF, false),
+          FieldDecl(Avg(Constant("5", UnQuoted)), "subsiding", DoubleF, false),
+          FieldDecl(F("laws"), "pixel", IntF, false)
+        )
+      )
+    )
+  )
+)

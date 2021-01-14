@@ -1,0 +1,67 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "rain",
+                "f": {
+                  "FieldExpr": {
+                    "Constant": {
+                      "v": "train",
+                      "vt": "Quoted"
+                    }
+                  }
+                },
+                "ftype": "StringF",
+                "hidden": false
+              }
+            }, {
+              "FieldDecl": {
+                "as": "unity",
+                "f": {
+                  "FieldExpr": {
+                    "Max": {
+                      "f": {
+                        "FieldExpr": {
+                          "Constant": {
+                            "v": "purple",
+                            "vt": "Quoted"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ftype": "StringF",
+                "hidden": true
+              }
+            }, {
+              "FieldDecl": {
+                "as": "expr",
+                "f": {
+                  "FieldExpr": {
+                    "Avg": {
+                      "f": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.col"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}

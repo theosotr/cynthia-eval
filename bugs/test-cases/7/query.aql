@@ -1,0 +1,10 @@
+SetRes(
+  New(
+    "T1",
+    List(
+      FieldDecl(Div(F("T1.col"), F("T1.id")), "div", DoubleF, true),
+      FieldDecl(Div(Constant("4", UnQuoted), Constant("2", UnQuoted)), "water", DoubleF, false),
+      FieldDecl(Avg(F("T1.id")), "expr", DoubleF, false)
+    )
+  )
+)

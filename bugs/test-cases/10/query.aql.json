@@ -1,0 +1,173 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Sort": {
+                  "s": [["rectal", "Desc"], ["vulgarity", "Asc"]]
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "Union": {
+                  "q1": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [{
+                          "FieldDecl": {
+                            "as": "vulgarity",
+                            "f": {
+                              "FieldExpr": {
+                                "Div": {
+                                  "f1": {
+                                    "FieldExpr": {
+                                      "F": {
+                                        "f": "Book.author.surname"
+                                      }
+                                    }
+                                  },
+                                  "f2": {
+                                    "FieldExpr": {
+                                      "Constant": {
+                                        "v": "Olaf",
+                                        "vt": "Quoted"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "ftype": "DoubleF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "chewer",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "Book.isbn"
+                                }
+                              }
+                            },
+                            "ftype": "StringF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "spacious",
+                            "f": {
+                              "FieldExpr": {
+                                "Max": {
+                                  "f": {
+                                    "FieldExpr": {
+                                      "F": {
+                                        "f": "Book.id"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "rectal",
+                            "f": {
+                              "FieldExpr": {
+                                "Constant": {
+                                  "v": "5",
+                                  "vt": "UnQuoted"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }],
+                        "m": "Book"
+                      }
+                    }
+                  },
+                  "q2": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [{
+                          "FieldDecl": {
+                            "as": "gully",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "Review.content"
+                                }
+                              }
+                            },
+                            "ftype": "StringF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "laws",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "Review.rating"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "subsiding",
+                            "f": {
+                              "FieldExpr": {
+                                "Avg": {
+                                  "f": {
+                                    "FieldExpr": {
+                                      "Constant": {
+                                        "v": "5",
+                                        "vt": "UnQuoted"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "ftype": "DoubleF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "pixel",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "laws"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }],
+                        "m": "Review"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

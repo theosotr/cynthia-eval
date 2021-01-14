@@ -1,0 +1,87 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "div",
+                "f": {
+                  "FieldExpr": {
+                    "Div": {
+                      "f1": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.col"
+                          }
+                        }
+                      },
+                      "f2": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.id"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": true
+              }
+            }, {
+              "FieldDecl": {
+                "as": "water",
+                "f": {
+                  "FieldExpr": {
+                    "Div": {
+                      "f1": {
+                        "FieldExpr": {
+                          "Constant": {
+                            "v": "4",
+                            "vt": "UnQuoted"
+                          }
+                        }
+                      },
+                      "f2": {
+                        "FieldExpr": {
+                          "Constant": {
+                            "v": "2",
+                            "vt": "UnQuoted"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }, {
+              "FieldDecl": {
+                "as": "expr",
+                "f": {
+                  "FieldExpr": {
+                    "Avg": {
+                      "f": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.id"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}
