@@ -20,7 +20,7 @@ replay()
 cp /dev/null data.txt
 
 
-for i in {14..14}; do
+for i in {1..20}; do
   cynthia clean --only-workdir
   cynthia test --orms django,peewee \
      -s 1 -n 100 \
