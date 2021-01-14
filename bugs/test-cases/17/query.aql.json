@@ -1,0 +1,87 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Union": {
+            "q1": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Distinct": {
+                        "f": "T1.str"
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "Apply": {
+                        "op": {
+                          "Operation": {
+                            "Filter": {
+                              "p": {
+                                "Predicate": {
+                                  "StartsWith": {
+                                    "f": "a",
+                                    "k": "T1.str"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "q": {
+                          "QuerySet": {
+                            "New": {
+                              "f": [{
+                                "FieldDecl": {
+                                  "as": "colA",
+                                  "f": {
+                                    "FieldExpr": {
+                                      "F": {
+                                        "f": "T1.id"
+                                      }
+                                    }
+                                  },
+                                  "ftype": "IntF",
+                                  "hidden": false
+                                }
+                              }],
+                              "m": "T1"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "q2": {
+              "QuerySet": {
+                "New": {
+                  "f": [{
+                    "FieldDecl": {
+                      "as": "colB",
+                      "f": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.id"
+                          }
+                        }
+                      },
+                      "ftype": "IntF",
+                      "hidden": false
+                    }
+                  }],
+                  "m": "T1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

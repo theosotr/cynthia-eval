@@ -1,0 +1,106 @@
+{
+  "Query": {
+    "FirstRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Sort": {
+                  "s": [["joked", "Desc"], ["sheer", "Asc"]]
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "New": {
+                  "f": [{
+                    "FieldDecl": {
+                      "as": "uncased",
+                      "f": {
+                        "FieldExpr": {
+                          "Count": {
+                            "f": {
+                              "FieldExpr": {
+                                "Constant": {
+                                  "v": "4",
+                                  "vt": "UnQuoted"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ftype": "IntF",
+                      "hidden": false
+                    }
+                  }, {
+                    "FieldDecl": {
+                      "as": "joked",
+                      "f": {
+                        "FieldExpr": {
+                          "Constant": {
+                            "v": "Thaddeus",
+                            "vt": "Quoted"
+                          }
+                        }
+                      },
+                      "ftype": "StringF",
+                      "hidden": false
+                    }
+                  }, {
+                    "FieldDecl": {
+                      "as": "sheer",
+                      "f": {
+                        "FieldExpr": {
+                          "Div": {
+                            "f1": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "T1.col"
+                                }
+                              }
+                            },
+                            "f2": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "T1.id"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ftype": "DoubleF",
+                      "hidden": false
+                    }
+                  }, {
+                    "FieldDecl": {
+                      "as": "lacquer",
+                      "f": {
+                        "FieldExpr": {
+                          "Avg": {
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "sheer"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "ftype": "DoubleF",
+                      "hidden": false
+                    }
+                  }],
+                  "m": "T1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

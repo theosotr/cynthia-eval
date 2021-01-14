@@ -1,0 +1,9 @@
+SetRes(
+  Apply(
+    Distinct(Some("add")),
+    Apply(
+      Sort(List(("add", Desc))),
+      New("T1", List(FieldDecl(Add(F("T1.id"), F("T1.col")), "add", IntF, false)))
+    )
+  )
+)

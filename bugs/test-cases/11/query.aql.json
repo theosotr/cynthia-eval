@@ -1,0 +1,47 @@
+{
+  "Query": {
+    "AggrRes": {
+      "aggrs": [{
+        "FieldDecl": {
+          "as": "key",
+          "f": {
+            "FieldExpr": {
+              "Sum": {
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "key"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ftype": "IntF",
+          "hidden": false
+        }
+      }],
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "key",
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.col"
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}

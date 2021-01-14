@@ -1,0 +1,4 @@
+AggrRes(
+  List(FieldDecl(Avg(F("expr")), "avg", DoubleF, false)),
+  Apply(Distinct(None), New("T1", List(FieldDecl(F("T1.col"), "expr", DoubleF, false))))
+)

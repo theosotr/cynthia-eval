@@ -1,0 +1,67 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Distinct": {
+                  "f": null
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Sort": {
+                        "s": [["expr", "Desc"]]
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [{
+                          "FieldDecl": {
+                            "as": "expr",
+                            "f": {
+                              "FieldExpr": {
+                                "Add": {
+                                  "f1": {
+                                    "FieldExpr": {
+                                      "F": {
+                                        "f": "T1.col"
+                                      }
+                                    }
+                                  },
+                                  "f2": {
+                                    "FieldExpr": {
+                                      "Constant": {
+                                        "v": "2",
+                                        "vt": "UnQuoted"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "ftype": "DoubleF",
+                            "hidden": false
+                          }
+                        }],
+                        "m": "T1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

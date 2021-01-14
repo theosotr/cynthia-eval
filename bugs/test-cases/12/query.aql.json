@@ -1,0 +1,66 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Distinct": {
+                  "f": null
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Sort": {
+                        "s": [["expr", "Desc"]]
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [{
+                          "FieldDecl": {
+                            "as": "col",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "T3.id"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }, {
+                          "FieldDecl": {
+                            "as": "expr",
+                            "f": {
+                              "FieldExpr": {
+                                "F": {
+                                  "f": "T3.t2.t1.id"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }],
+                        "m": "T3"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

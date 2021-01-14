@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS t1;
+DROP TABLE IF EXISTS t2;
+DROP TABLE IF EXISTS t3;
+CREATE TABLE t1 (
+id integer,
+price numeric(10, 2),
+PRIMARY KEY (id)
+);
+INSERT INTO t1(id,price) VALUES (1,-7);
+INSERT INTO t1(id,price) VALUES (2,6);
+INSERT INTO t1(id,price) VALUES (3,3);
+INSERT INTO t1(id,price) VALUES (4,7);
+
+CREATE TABLE t2 (
+id integer,
+t1_id integer,
+PRIMARY KEY (id),
+FOREIGN KEY (t1_id) REFERENCES t1(id) ON DELETE CASCADE
+);
+INSERT INTO t2(id,t1_id) VALUES (1,1);
+INSERT INTO t2(id,t1_id) VALUES (2,3);
+INSERT INTO t2(id,t1_id) VALUES (3,2);
+INSERT INTO t2(id,t1_id) VALUES (4,2);
+
+CREATE TABLE t3 (
+id integer,
+t2_id integer,
+PRIMARY KEY (id),
+FOREIGN KEY (t2_id) REFERENCES t2(id) ON DELETE CASCADE
+);
+INSERT INTO t3(id,t2_id) VALUES (1,1);
+INSERT INTO t3(id,t2_id) VALUES (2,3);
+INSERT INTO t3(id,t2_id) VALUES (3,4);
+INSERT INTO t3(id,t2_id) VALUES (4,2);

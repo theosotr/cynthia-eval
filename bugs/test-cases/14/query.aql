@@ -1,0 +1,14 @@
+FirstRes(
+  Apply(
+    Sort(List(("joked", Desc), ("sheer", Asc))),
+    New(
+      "T1",
+      List(
+        FieldDecl(Count(Some(Constant("4", UnQuoted))), "uncased", IntF, false),
+        FieldDecl(Constant("Thaddeus", Quoted), "joked", StringF, false),
+        FieldDecl(Div(F("T1.col"), F("T1.id")), "sheer", DoubleF, false),
+        FieldDecl(Avg(F("sheer")), "lacquer", DoubleF, false)
+      )
+    )
+  )
+)

@@ -1,0 +1,9 @@
+SetRes(
+  Apply(
+    Distinct(None),
+    Apply(
+      Sort(List(("expr", Desc))),
+      New("T1", List(FieldDecl(Add(F("T1.col"), Constant("2", UnQuoted)), "expr", DoubleF, false)))
+    )
+  )
+)

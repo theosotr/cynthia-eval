@@ -1,0 +1,60 @@
+{
+  "Query": {
+    "AggrRes": {
+      "aggrs": [{
+        "FieldDecl": {
+          "as": "avg",
+          "f": {
+            "FieldExpr": {
+              "Avg": {
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "expr"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ftype": "DoubleF",
+          "hidden": false
+        }
+      }],
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Distinct": {
+                  "f": null
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "New": {
+                  "f": [{
+                    "FieldDecl": {
+                      "as": "expr",
+                      "f": {
+                        "FieldExpr": {
+                          "F": {
+                            "f": "T1.col"
+                          }
+                        }
+                      },
+                      "ftype": "DoubleF",
+                      "hidden": false
+                    }
+                  }],
+                  "m": "T1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

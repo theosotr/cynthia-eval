@@ -1,0 +1,15 @@
+SetRes(
+  Apply(
+    Distinct(None),
+    Apply(
+      Sort(List(("expr", Desc))),
+      New(
+        "T3",
+        List(
+          FieldDecl(F("T3.id"), "col", IntF, false),
+          FieldDecl(F("T3.t2.t1.id"), "expr", IntF, false)
+        )
+      )
+    )
+  )
+)

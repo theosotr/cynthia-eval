@@ -1,0 +1,12 @@
+SetRes(
+  Union(
+    Apply(
+      Distinct(Some("T1.str")),
+      Apply(
+        Filter(StartsWith("T1.str", "a")),
+        New("T1", List(FieldDecl(F("T1.id"), "colA", IntF, false)))
+      )
+    ),
+    New("T1", List(FieldDecl(F("T1.id"), "colB", IntF, false)))
+  )
+)
