@@ -39,7 +39,7 @@ INSERT INTO "ORM_BUG"(
 ) VALUES(
     "SQL-expression is not wrapped by brackets when 'type_coerce()' is used",
     "SQLAlchemy",
-    "rel_1_3_15",
+    "3fb0eb5a156ab7dbe19d82717dd197d9d22e64f1",
     "fixed",
     0,
     "logic error",
@@ -165,7 +165,7 @@ INSERT INTO "ORM_BUG"(
 ) VALUES(
     "Query crashes with syntax error on SQLite",
     "SQLAlchemy",
-    "rel_1_3_15",
+    "b0cfa7379cf8513a821a3dbe3028c4965d9f85bd",
     "fixed",
     0,
     "invalid sql",
@@ -255,7 +255,7 @@ INSERT INTO "ORM_BUG"(
 ) VALUES(
     "ExpressionWrapper loses output_field for combined expression without an output_field",
     "Django",
-    "3.1",
+    "1d8256719eecb724476e6cb8d63cfebf6ba1a3cc",
     "fixed",
     1,
     "crash",
@@ -417,7 +417,7 @@ INSERT INTO "ORM_BUG"(
 ) VALUES(
     "Combined queryset crash on combined querysets with ordering",
     "Django",
-    "3.1",
+    "981a072dd4dec586f8fc606712ed9a2ef116eeee",
     "fixed",
     0,
     "crash",
@@ -453,7 +453,7 @@ INSERT INTO "ORM_BUG"(
 ) VALUES(
     "MySQL reserved words",
     "SQLAlchemy",
-    "rel_1_3_19",
+    "fe772672b4fc00df0b66aca92e2092779a844a2d",
     "fixed",
     0,
     "invalid sql",
