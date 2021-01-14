@@ -1,0 +1,54 @@
+{
+  "Query": {
+    "AggrRes": {
+      "aggrs": [{
+        "FieldDecl": {
+          "as": "expr",
+          "f": {
+            "FieldExpr": {
+              "Count": {
+
+              }
+            }
+          },
+          "ftype": "IntF",
+          "hidden": false
+        }
+      }],
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "id",
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.id"
+                    }
+                  }
+                },
+                "ftype": "IntF",
+                "hidden": false
+              }
+            }, {
+              "FieldDecl": {
+                "as": "count",
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.count"
+                    }
+                  }
+                },
+                "ftype": "IntF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+AggrRes(
+  List(FieldDecl(Count(None), "expr", IntF, false)),
+  New(
+    "T1",
+    List(FieldDecl(F("T1.id"), "id", IntF, false), FieldDecl(F("T1.count"), "count", IntF, false))
+  )
+)
