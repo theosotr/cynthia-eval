@@ -1,0 +1,10 @@
+SetRes(
+  New(
+    "T1",
+    List(
+      FieldDecl(Constant("train", Quoted), "rain", StringF, false),
+      FieldDecl(Max(Constant("purple", Quoted)), "unity", StringF, true),
+      FieldDecl(Avg(F("T1.col")), "expr", DoubleF, false)
+    )
+  )
+)

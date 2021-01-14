@@ -1,0 +1,61 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Sort": {
+                  "s": [["grackle", "Desc"]]
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Filter": {
+                        "p": {
+                          "Predicate": {
+                            "StartsWith": {
+                              "f": "blint_\\z",
+                              "k": "T1.str"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [{
+                          "FieldDecl": {
+                            "as": "grackle",
+                            "f": {
+                              "FieldExpr": {
+                                "Constant": {
+                                  "v": "0",
+                                  "vt": "UnQuoted"
+                                }
+                              }
+                            },
+                            "ftype": "IntF",
+                            "hidden": false
+                          }
+                        }],
+                        "m": "T1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

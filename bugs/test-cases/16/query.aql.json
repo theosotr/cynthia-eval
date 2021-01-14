@@ -1,0 +1,34 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Filter": {
+                  "p": {
+                    "Predicate": {
+                      "Contains": {
+                        "f": "%",
+                        "k": "T1.str"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "New": {
+                  "f": [],
+                  "m": "T1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

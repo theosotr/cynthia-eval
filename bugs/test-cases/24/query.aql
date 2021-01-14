@@ -1,0 +1,17 @@
+SetRes(
+  New(
+    "T1",
+    List(
+      FieldDecl(Min(Constant("beheads", Quoted)), "oxidizing", StringF, false),
+      FieldDecl(
+        Sub(
+          Mul(Constant("0", UnQuoted), F("T1.id")),
+          Div(Max(Constant("4", UnQuoted)), F("T1.col"))
+        ),
+        "rhythms",
+        DoubleF,
+        false
+      )
+    )
+  )
+)

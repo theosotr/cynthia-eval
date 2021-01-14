@@ -1,0 +1,1 @@
+SetRes(Apply(Filter(Contains("T1.str", "%")), New("T1", List())))

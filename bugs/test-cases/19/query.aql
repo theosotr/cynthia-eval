@@ -1,0 +1,9 @@
+SetRes(
+  Apply(
+    Sort(List(("grackle", Desc))),
+    Apply(
+      Filter(StartsWith("T1.str", "blint_\\z")),
+      New("T1", List(FieldDecl(Constant("0", UnQuoted), "grackle", IntF, false)))
+    )
+  )
+)

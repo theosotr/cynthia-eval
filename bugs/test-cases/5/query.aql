@@ -1,0 +1,1 @@
+SetRes(Apply(Filter(Not(Eq("T1.str", Constant("bar", Quoted)))), New("T1", List())))

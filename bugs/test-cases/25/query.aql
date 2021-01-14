@@ -1,0 +1,1 @@
+SetRes(New("T1", List(FieldDecl(F("T1.col"), "cube", DoubleF, false))))

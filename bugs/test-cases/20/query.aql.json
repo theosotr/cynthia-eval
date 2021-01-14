@@ -1,0 +1,66 @@
+{
+  "Query": {
+    "AggrRes": {
+      "aggrs": [{
+        "FieldDecl": {
+          "as": "col",
+          "f": {
+            "FieldExpr": {
+              "Max": {
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "expr"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ftype": "DoubleF",
+          "hidden": false
+        }
+      }, {
+        "FieldDecl": {
+          "as": "sum",
+          "f": {
+            "FieldExpr": {
+              "Sum": {
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.col"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "ftype": "DoubleF",
+          "hidden": false
+        }
+      }],
+      "qs": {
+        "QuerySet": {
+          "New": {
+            "f": [{
+              "FieldDecl": {
+                "as": "expr",
+                "f": {
+                  "FieldExpr": {
+                    "F": {
+                      "f": "T1.col"
+                    }
+                  }
+                },
+                "ftype": "DoubleF",
+                "hidden": false
+              }
+            }],
+            "m": "T1"
+          }
+        }
+      }
+    }
+  }
+}

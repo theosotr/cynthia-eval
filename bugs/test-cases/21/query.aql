@@ -1,0 +1,8 @@
+SubsetRes(
+  0,
+  Some(0),
+  Apply(
+    Sort(List(("T1.id", Asc))),
+    Apply(Filter(Not(Eq("T1.str", Constant("bar", Quoted)))), New("T1", List()))
+  )
+)

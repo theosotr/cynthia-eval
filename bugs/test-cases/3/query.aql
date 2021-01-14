@@ -1,0 +1,14 @@
+SetRes(
+  Apply(
+    Sort(List(("Review.book.title", Desc), ("Review.reviewer_name", Asc))),
+    Apply(
+      Filter(
+        And(
+          Gte("Review.rating", Constant("2", UnQuoted)),
+          Contains("Review.book.author.surname", "o")
+        )
+      ),
+      New("Review", List())
+    )
+  )
+)

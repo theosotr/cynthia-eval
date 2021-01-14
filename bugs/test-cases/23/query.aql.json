@@ -1,0 +1,55 @@
+{
+  "Query": {
+    "SetRes": {
+      "qs": {
+        "QuerySet": {
+          "Union": {
+            "q1": {
+              "QuerySet": {
+                "Union": {
+                  "q1": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [],
+                        "m": "T1"
+                      }
+                    }
+                  },
+                  "q2": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [],
+                        "m": "T1"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "q2": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Sort": {
+                        "s": [["T1.id", "Asc"]]
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [],
+                        "m": "T1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

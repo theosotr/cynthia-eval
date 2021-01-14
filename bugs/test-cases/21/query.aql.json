@@ -1,0 +1,62 @@
+{
+  "Query": {
+    "SubsetRes": {
+      "limit": 0,
+      "offset": 0,
+      "qs": {
+        "QuerySet": {
+          "Apply": {
+            "op": {
+              "Operation": {
+                "Sort": {
+                  "s": [["T1.id", "Asc"]]
+                }
+              }
+            },
+            "q": {
+              "QuerySet": {
+                "Apply": {
+                  "op": {
+                    "Operation": {
+                      "Filter": {
+                        "p": {
+                          "Predicate": {
+                            "Not": {
+                              "p": {
+                                "Predicate": {
+                                  "Eq": {
+                                    "f": {
+                                      "FieldExpr": {
+                                        "Constant": {
+                                          "v": "bar",
+                                          "vt": "Quoted"
+                                        }
+                                      }
+                                    },
+                                    "k": "T1.str"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "q": {
+                    "QuerySet": {
+                      "New": {
+                        "f": [],
+                        "m": "T1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
