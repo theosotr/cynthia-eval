@@ -779,3 +779,6 @@ After reproducing both bugs, you can exit the Docker container by running
 ```bash
 cynthia@8461308e0af8:~$ exit
 ```
+
+Step by Step Instructions
+=========================
