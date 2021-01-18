@@ -583,4 +583,199 @@ Cleaned database postgres successfully
 Command clean finished successfully.
 ```
 
+You can exit the Docker container by running
+
+```bash
+cynthia@8461308e0af8:~$ exit
+```
+
+
 ## Reproducing two example bugs
+
+Now, we will use `Cynthia` to reproduce the
+two bugs mentioned in Section 2 of our paper. 
+To do so, we will spawn a new container by running
+
+
+```bash
+docker run -ti --rm -v $(pwd)/example_bugs:/home/cynthia/example_bugs cynthia
+```
+
+Note that we used the Docker option `-v` to mount a local volume inside
+the freshly-created Docker container. Specifically,
+we mounted the directory `example_bugs/` that contains the AQL queries
+that trigger Django and peewee bugs mentioned in our paper (Section 2).
+
+
+### Reproducing the Django bug
+
+To reproduce the Django bug presented in Figure 2,
+run the following command from the container
+
+
+```bash
+cynthia@8461308e0af8:~$ ./scripts/setup-orms.sh --django-version 3.1
+```
+
+This script will install the buggy Django version that contains the fault
+we want to reproduce. After that, run `Cynthia` as follows
+
+```bash
+cynthia@8461308e0af8:~$ cynthia run \
+  --sql example_bugs/django_bug/Schemadb.sql \
+  --aql example_bugs/django_bug/query.aql.json \
+  --orms django,peewee \
+  --backends mysql
+```
+
+The command above means that we run the query AQL query
+located at `example_bugs/django_bug/query.aql.json` to test
+Django and peewee. The query refers to the database schema located at
+the `example_bugs/django_bug/Schemadb.sql` file, and runs on top of
+`MySQL`. The command will produce the following output
+
+```
+Running Schemadb  ? % [ =                      Passed ✔: 0, Failed ✘: 1, Unsp: 0, Timeouts: 0
+Command run finished successfully.
+```
+
+Interestingly, this query failed.
+This is because Django and peewee produced
+different results. If we examine the diff of the results produced by
+these ORMs
+
+```bash
+cynthia@8461308e0af8:~$ diff .cynthia/sessions/Schemadb/1/django_mysql.out \
+  .cynthia/sessions/Schemadb/1/peewee_mysql.out
+```
+
+We get
+
+```diff
+1,49c1
+< Traceback (most recent call last):
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 84, in _execute
+<     return self.cursor.execute(sql, params)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/mysql/base.py", line 73, in execute
+<     return self.cursor.execute(query, args)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/cursors.py", line 206, in execute
+<     res = self._query(query)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/cursors.py", line 319, in _query
+<     db.query(q)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/connections.py", line 259, in query
+<     _mysql.connection.query(self, query)
+< MySQLdb._exceptions.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNION (SELECT `t2`.`id` FROM `t2`)) UNION (SELECT `t3`.`id` FROM `t3`)' at line 1")
+<
+< The above exception was the direct cause of the following exception:
+<
+< Traceback (most recent call last):
+<   File "/home/cynthia/.cynthia/projects/Schemadb/django/driver_mysql.py", line 32, in <module>
+<     for r in ret32:
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/models/query.py", line 287, in __iter__
+<     self._fetch_all()
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/models/query.py", line 1303, in _fetch_all
+<     self._result_cache = list(self._iterable_class(self))
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/models/query.py", line 111, in __iter__
+<     for row in compiler.results_iter(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size):
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/models/sql/compiler.py", line 1106, in results_iter
+<     results = self.execute_sql(MULTI, chunked_fetch=chunked_fetch, chunk_size=chunk_size)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/models/sql/compiler.py", line 1154, in execute_sql
+<     cursor.execute(sql, params)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 98, in execute
+<     return super().execute(sql, params)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 66, in execute
+<     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 75, in _execute_with_wrappers
+<     return executor(sql, params, many, context)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 84, in _execute
+<     return self.cursor.execute(sql, params)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/utils.py", line 90, in __exit__
+<     raise dj_exc_value.with_traceback(traceback) from exc_value
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/utils.py", line 84, in _execute
+<     return self.cursor.execute(sql, params)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/Django-3.1-py3.6.egg/django/db/backends/mysql/base.py", line 73, in execute
+<     return self.cursor.execute(query, args)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/cursors.py", line 206, in execute
+<     res = self._query(query)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/cursors.py", line 319, in _query
+<     db.query(q)
+<   File "/home/cynthia/.env/lib/python3.6/site-packages/MySQLdb/connections.py", line 259, in query
+<     _mysql.connection.query(self, query)
+< django.db.utils.ProgrammingError: (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UNION (SELECT `t2`.`id` FROM `t2`)) UNION (SELECT `t3`.`id` FROM `t3`)' at line 1")
+---
+> id 1.00
+\ No newline at end of file
+```
+
+Peewee ran the query successfully and fetched one record,
+namely `id` whose value is 1.00.
+On the other hand, Django
+was unable to run the query because of a bug
+found in Django.
+In particular,
+the SQL query generated by Django had syntax errors.
+
+
+### Reproducing the peewee bug
+
+First run the following command to install the buggy version of peewee.
+
+```bash
+cynthia@8461308e0af8:~$ ./scripts/setup-orms.sh --peewee-version 3.13.3
+```
+
+Then, run `Cynthia` as follows
+
+```bash
+cynthia@8461308e0af8:~$ cynthia run \
+  --sql example_bugs/peewee_bug/Schemadb.sql \
+  --aql example_bugs/peewee_bug/query.aql.json \
+  --orms django,peewee
+```
+
+This `cynthia run` command yields
+
+```
+Running Schemadb  ? % [ =                      Passed ✔: 0, Failed ✘: 1, Unsp: 0, Timeouts: 0
+Command run finished successfully.
+```
+
+As you notice, this query again failed meaning that Django and peewee
+produced incorrect results. To examine the diff of their results, run
+
+
+```bash
+cynthia@8461308e0af8:~$ diff .cynthia/sessions/Schemadb/1/django_sqlite.out \
+  .cynthia/sessions/Schemadb/1/peewee_sqlite.out
+```
+
+```diff
+1,6c1,6
+< avgExpr 100.00
+< avgExpr 16.00
+< avgExpr 169.00
+< avgExpr 1936.00
+< avgExpr 225.00
+< avgExpr 576.00
+---
+> avgExpr 19.00
+> avgExpr 25.00
+> avgExpr 29.00
+> avgExpr 47.00
+> avgExpr 7.00
+> avgExpr 87.00
+```
+
+Unlike the first bug,
+this time,
+both ORMs ran the query without errors.
+However, they produced completely different records.
+This behaviour is caused due to a bug in peewee which we thoroughly explain
+in Section 2 of our paper (Figure 3).
+
+After reproducing both bugs, you can exit the Docker container by running
+
+
+```bash
+cynthia@8461308e0af8:~$ exit
+```
