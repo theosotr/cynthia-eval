@@ -5,6 +5,7 @@ import sys
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 
 data = defaultdict(list)
@@ -17,6 +18,10 @@ with open(sys.argv[1]) as f:
 
 def avg(data, key):
     return round((sum(data[key]) / len(data[key])) * 100, 2)
+
+
+def median(data, key):
+    return round(np.median(data[key]) * 100, 2)
 
 
 names = OrderedDict({
@@ -40,21 +45,27 @@ def construct_dataframe(data):
     return pd.DataFrame(framedata)
 
 
-print('Naive (50 records)', avg(data, '50'))
-print('Naive (100 records)', avg(data, '100'))
-print('Naive (300 records)', avg(data, '300'))
-print('Naive (500 records)', avg(data, '500'))
-print('Naive (1000 records)', avg(data, '1000'))
-print('Solver', avg(data, 'solver'))
+print('Average Naive (50 records)', avg(data, '50'))
+print('Average Naive (100 records)', avg(data, '100'))
+print('Average Naive (300 records)', avg(data, '300'))
+print('Average Naive (500 records)', avg(data, '500'))
+print('Average Naive (1000 records)', avg(data, '1000'))
+print('Average Solver', avg(data, 'solver'))
 
+print('Median Naive (50 records)', median(data, '50'))
+print('Median Naive (100 records)', median(data, '100'))
+print('Median Naive (300 records)', median(data, '300'))
+print('Median Naive (500 records)', median(data, '500'))
+print('Median Naive (1000 records)', median(data, '1000'))
+print('Median Solver', median(data, 'solver'))
 
 plt.style.use('ggplot')
 sns.set(style="whitegrid")
-plt.rcParams['font.family'] = 'Ubuntu'
+plt.rcParams['font.family'] = 'DejaVu Sans'
 plt.rcParams['figure.figsize'] = (8, 4)
 plt.rcParams['axes.labelsize'] = 14
 plt.rcParams['xtick.labelsize'] = 12
-plt.rcParams['font.serif'] = 'Ubuntu'
+plt.rcParams['font.serif'] = 'DejaVu Sans'
 plt.rcParams['font.monospace'] = 'Inconsolata Medium'
 plt.rcParams['axes.labelweight'] = 'bold'
 dataframe = construct_dataframe(data)
