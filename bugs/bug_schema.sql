@@ -441,7 +441,7 @@ INSERT INTO "ORM_BUG"(
     "crash",
     "expression",
     "ALL",
-    "https://github.com/sequelize/sequelize/issues/12099",
+    "https://code.djangoproject.com/ticket/31919",
     "test-cases/24"
 );
 
