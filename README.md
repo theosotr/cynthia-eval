@@ -97,6 +97,12 @@ We provide a `Dockerfile` to build images that contain:
 If you do not want build the images on your own, please skip this step
 and proceed to the next section ("Pull Images from Dockerhub")
 
+First enter the `cynthia/` directory
+
+```bash
+cd cynthia
+```
+
 To build the first image (named `cynthia`), run the following command
 (estimated running time: 30 minutes - 1 hour)
 
@@ -782,3 +788,336 @@ cynthia@8461308e0af8:~$ exit
 
 Step by Step Instructions
 =========================
+
+To validate the main results presented in the paper,
+first create a new Docker container by running
+
+```
+docker run -ti --rm \
+  -v $(pwd)/bugs:/home/cynthia/bugs \
+  -v $(pwd)/scripts:/home/cynthia/eval-scripts cynthia
+```
+
+Note that
+we mount two local volumes inside the newly-created container.
+The first volume (`bugs/`) contains the database including
+the bugs discovered by our approach, while the second volume
+(`scripts/`) includes some scripts to reproduce
+the results of the paper.
+
+## Bug Database
+
+We provide an SQLite database (
+see the file `bugs/bugdb.sqlite3`)
+that contains information about the bugs discovered by our
+approach during the evaluation.
+The schema of this database is located
+at the file `bugs/bug_schema.sql`.
+The bug database consists of one table,
+namely `ORM_BUG`.
+Each record of this table consists of the
+following columns
+
+* `id`: A serial number corresponding to the ID of the bug.
+* `desc`: A short description of the bug.
+* `orm`: The name of the ORM system where the bug was found.
+* `orm_version`: The buggy version of ORM where the bug exists.
+* `status`: The status of the bug. Either "confirmed", "fixed" or
+  "unconfirmed".
+* `release_blocker`: 1 if the ORM developers marked this bug as
+  release blocker; 0 otherwise.
+* `bug_type`: The type of the bug. Either "logic error",
+  "invalid sql" or "crash".
+* `affected_orm_feature`: The ORM feature related to this bug.
+* `affected_backend`: The database system where the bug manifests
+  itself. If the value is "ALL", then the bug happens regardless of
+  the underlying database system.
+* `issue_url`: The URL of the bug report opened by us.
+* `test_case`: The directory (relative to the artifact)
+  that includes a test case that triggers the bug.
+  The directory contains the AQL query that triggers the bug, along
+  with a database schema on which the query is run.
+
+### Example Queries
+
+From inside the container, 
+we can perform some basic queries on this bug database.
+
+Count the discovered bugs
+
+```bash
+cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 "SELECT COUNT(*) FROM ORM_BUG"
+27
+```
+
+Find the number of bugs that were fixed
+
+```bash
+cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
+  "SELECT COUNT(*) FROM ORM_BUG WHERE STATUS = 'fixed'"
+19
+```
+
+Find the number of bugs that either fixed or confirmed
+
+```bash
+cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
+   "SELECT COUNT(*) FROM ORM_BUG WHERE status = 'fixed' OR status ='confirmed'"
+```
+
+For each bug,
+dump the URL pointing to the bug report
+
+```bash
+cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
+  "SELECT issue_url FROM ORM_BUG"
+```
+
+The above produces
+
+```
+https://code.djangoproject.com/ticket/31445
+https://github.com/sqlalchemy/sqlalchemy/issues/5344
+https://github.com/sequelize/sequelize/issues/12073
+https://github.com/sequelize/sequelize/issues/12099
+https://github.com/sequelize/sequelize/issues/12315
+https://code.djangoproject.com/ticket/31651
+https://code.djangoproject.com/ticket/31659
+https://github.com/coleifer/peewee/issues/2200
+https://github.com/sqlalchemy/sqlalchemy/issues/5395
+https://code.djangoproject.com/ticket/31699
+https://code.djangoproject.com/ticket/31679
+https://github.com/sqlalchemy/sqlalchemy/issues/5443
+https://github.com/coleifer/peewee/issues/2220
+https://code.djangoproject.com/ticket/31773
+https://github.com/rails/rails/issues/39857
+https://github.com/sequelize/sequelize/issues/12519
+https://github.com/sqlalchemy/sqlalchemy/issues/5469
+https://github.com/sqlalchemy/sqlalchemy/issues/5470
+https://github.com/coleifer/peewee/issues/2233
+https://code.djangoproject.com/ticket/31880
+https://github.com/sequelize/sequelize/pull/12622
+https://github.com/ESSolutions/django-mssql-backend/issues/62
+https://code.djangoproject.com/ticket/31916
+https://code.djangoproject.com/ticket/31919
+https://github.com/sqlalchemy/sqlalchemy/pull/5539
+https://github.com/sqlalchemy/sqlalchemy/issues/5511
+https://github.com/coleifer/peewee/issues/2224
+```
+
+## RQ1
+
+For the first research question, we will use the bug database
+to reproduce Table II that shows how many bugs
+(and their status) were found in each ORM system.
+To do so, run
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/rq1.py 
+```
+
+This will produce
+
+
+```bash
+ORM                                     Total          Fixed      Confirmed    Unconfirmed
+==========================================================================================
+Django                                     10              6              3              1
+SQLAlchemy                                  7              7              0              0
+Sequelize                                   5              2              1              2
+peewee                                      4              4              0              0
+ActiveRecord                                1              0              1              0
+==========================================================================================
+Total                                      27             19              5              3
+
+```
+
+## RQ2
+
+For the second research question,
+first we will reproduce Table III.
+This table shows how many times each type of bugs
+happens in every database system.
+
+Run
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/rq2-table.py 
+```
+
+This produces
+
+```
+Type          #Bugs    All       SQLite     MySQL      PSQL       MSSQL
+========================================================================
+Logic Error   12       11        0          0          0          1
+Invalid SQL   10       2         1          3          2          3
+Crash         5        3         1          0          2          0
+========================================================================
+Total         27       16        2          3          4          4
+
+```
+
+After this, run the following command to get the bug distribution for
+every ORM feature.
+
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/rq2-categories.py 
+```
+
+This produces
+
+```
+Category                                #Bugs
+==================================================
+expression                                  7
+distinct                                    6
+combined query                              4
+string comparison                           4
+aliasing                                    4
+group by                                    3
+```
+
+For example, based on the above output,
+we get that the expression-related bugs are seven,
+the distinct-related bugs are six, and so on.
+Note that the occurrence of every bug category is described
+in plain text in our paper (see Section IV.C).
+
+
+## RQ3
+
+For this research question,
+we will use `Cynthia` to re-run the experiment
+described in Section IV.D.
+In particular,
+we spawn 20 testing sessions.
+For each testing
+we generate 100 AQL queries,
+and use the Z3 solver to generate database records.
+Then, we compare the results of ORMs as usual.
+At the end of each testing session,
+we measure in how many queries the ORMs return
+empty results.
+We then replay the execution of
+each testing session, using a naive
+data generation strategy
+(populating the database with completely random records),
+and try out different settings:
+generating 50 random records,
+100, 300, 500 and finally 1000.
+
+To re-run this experiment, run (estimated running time: 30-1 hour)
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/rq3.sh
+```
+
+The above script generates a txt file (named `data.txt`)
+that contains the percentage rate of the unsatisfied queries
+for every testing session and every generation strategy.
+
+Based on the resulting `data.txt` file,
+we will reproduce Figure 10 of our paper.
+To do so, first install some required Python packages
+
+```bash
+cynthia@2c16ea0e6849:~$ pip install pandas matplotlib seaborn numpy
+```
+
+then run
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/rq3-fig10.py data.txt
+cynthia@2c16ea0e6849:~$ mv fig10.pdf eval-scripts
+```
+
+The script also dumps some metrics presented in the paper
+median and average percentage of unsatisfied queries
+for every generation strategy.
+
+After this, you can exit the container
+
+```bash
+cynthia@2c16ea0e6849:~$ exit
+```
+
+You can view the generated figure in you local machine by
+opening the file `scripts/fig10.pdf`.
+You are expected to find similar trends with those
+presented in the paper.
+
+
+## Reproducing the discovered bugs
+
+This artifact also
+includes the directory `bugs/test-cases/`
+containing a test case for every ORM bug
+discovered by our approach.
+Each test case consists of
+
+`TestSchema.sql`: The database schema on which we run the test case.
+`query.aql.json`: The AQL query that triggers the ORM bug.
+`query.aql`: The AQL (in readable format) that triggers the ORM bug.
+
+Based on these test cases, you can reproduce the ORM bugs
+included in the artifact.
+To so so, 
+first create a new container
+
+```bash
+docker run -ti --rm \
+  -v $(pwd)/bugs:/home/cynthia/bugs \
+  -v $(pwd)/scripts:/home/cynthia/eval-scripts cynthia
+```
+
+And then from inside the container run
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/reproduce-bug.sh <Bug ID>
+```
+
+For example, to reproduce the bug whose ID is 11,
+run 
+
+```bash
+cynthia@2c16ea0e6849:~$ ./eval-scripts/reproduce-bug.sh 11
+```
+
+Some explanations:
+The `reproduce-bug.sh` first queries our SQLite database
+(i.e., `bugs/bugdb.sqlite3`)
+in order to retrieve information related to the bug with ID 11
+(e.g., ORM, ORM version, affected database system, etc.).
+Then, the script installs the buggy ORM version in the system,
+and then uses `Cynthia` to run the test case (i.e., AQL query)
+located in `bugs/test-cases/11/query.aql.json`.
+The output produced by the buggy ORM is compared against
+with that generated by another ORM.
+Finally,
+the script dumps the diff of ORM outputs to the standard output.
+
+For example, for the bug with ID 11 (a Django bug),
+we get
+
+```diff
+1c1
+< key 0.00
+\ No newline at end of file
+---
+> key 95.99
+\ No newline at end of file
+```
+
+This means that Django produced the output
+
+```
+key 0.00
+```
+
+while the reference ORM produced
+
+```
+key 95.99
+```
