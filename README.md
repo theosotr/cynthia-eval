@@ -23,7 +23,7 @@ Setup
 To get the artifact, run
 
 ```bash
-git clone --recursive https://github.com/theosotr/cynthia-eval cynthia-eval
+git clone --recursive https://github.com/theosotr/cynthia-eval ~/cynthia-eval
 ```
 
 ## Overview
