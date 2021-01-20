@@ -107,7 +107,7 @@ To build the first image (named `cynthia`), run the following command
 (estimated running time: 30 minutes - 1 hour)
 
 ```
-docker build -t cynthia .
+docker build -t cynthia --no-cache .
 ```
 
 **NOTE:**
@@ -129,9 +129,9 @@ following commands
 
 
 ```bash
-docker pull theosot/cynthia
+docker pull theosotr/cynthia
 # Rename the image to be consistent with our scripts
-docker tag theosot/cynthia cynthia
+docker tag theosotr/cynthia cynthia
 ```
 
 After downloading the Docker image successfully,
