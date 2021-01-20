@@ -134,7 +134,7 @@ INSERT INTO "ORM_BUG"(
     1,
     "crash",
     "expression",
-    "SQLite,Postgres",
+    "Postgres",
     "https://code.djangoproject.com/ticket/31659",
     "test-cases/7"
 );
