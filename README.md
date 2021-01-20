@@ -165,7 +165,7 @@ docker run -ti --rm cynthia
 Notice that when creating a new container,
 we also boost the database servers of
 MySQL, PostgreSQL, and MS SQL Server
-so that they can be ready for use.
+so that they are ready for use.
 
 ## Basic Usage
 
