@@ -894,7 +894,7 @@ cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
 19
 ```
 
-Find the number of bugs that either fixed or confirmed
+Find the number of bugs that were either fixed or confirmed
 
 ```bash
 cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
@@ -903,7 +903,7 @@ cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
 ```
 
 For each bug,
-dump the URL pointing to the bug report
+dump the URLs pointing to our bug reports
 
 ```bash
 cynthia@2c16ea0e6849:~$ sqlite3 bugs/bugdb.sqlite3 \
