@@ -16,7 +16,7 @@ backend="$(cut -d'|' -f3 <<< $res | awk '{print tolower($0)}')"
 backend="$(cut -d',' -f2 <<< $backend)"
 
 echo "Installing the ORM versions for reproducing the bug..."
-${HOME}/scripts/setup-orms.sh --$orm-version $version > /dev/null 2>&1
+setup-orms.sh --$orm-version $version > /dev/null 2>&1
 
 echo "Cleaning .cynthia..."
 cynthia clean
