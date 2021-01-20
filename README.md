@@ -306,7 +306,7 @@ coming from all AQL query runs inside the `.cynthia/sessions/`
 directory (see below).
 If this option is not provided, `Cynthia`
 stores only the AQL queries for which the ORMs under test produced
-different results.
+different results. Estimated running time: 1-3 minutes.
 
 ```bash
 cynthia@0fbedf262c3d:~$ cynthia test \
@@ -582,7 +582,10 @@ from those produced by the `Django`, `peewee`, and `SQLAlchemy`
 ORMs.
 
 You can verify this by inspecting the corresponding ORM outputs
-from the `.cynthia` directory
+from the `.cynthia` directory.
+For example,
+for the AQL query with 73,
+we have
 
 ```bash
 cynthia@0fbedf262c3d:~$ diff .cynthia/sessions/Cucumbers/73/sequelize_sqlite.out \
@@ -1041,7 +1044,7 @@ and try out different settings:
 generating 50 random records,
 100, 300, 500 and finally 1000.
 
-To re-run this experiment, run (estimated running time: 30-1 hour)
+To re-run this experiment, run (estimated running time: 30 minutes - 1 hour)
 
 ```bash
 cynthia@2c16ea0e6849:~$ ./eval-scripts/rq3.sh
