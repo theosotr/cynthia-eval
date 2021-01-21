@@ -8,7 +8,7 @@ fi
 bug=$1
 dir=$(dirname $0)
 bugdir=$(realpath $dir/../bugs)
-query="SELECT orm, orm_version, affected_backend FROM ORM_BUG WHERE test_case='test-cases/$bug'"
+query="SELECT orm, orm_version, affected_backend FROM ORM_BUG WHERE id=$bug"
 res=$(sqlite3 $bugdir/bugdb.sqlite3 "$query")
 orm="$(cut -d'|' -f1 <<< $res | awk '{print tolower($0)}')"
 version="$(cut -d'|' -f2 <<< $res)"
